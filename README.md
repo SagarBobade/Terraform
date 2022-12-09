@@ -40,3 +40,5 @@ Commands -
 4. Destroy - Destroy the infrastructure sequentially.
 
 For development, you should install Terraform plugin in VSCode IDE.
+
+
