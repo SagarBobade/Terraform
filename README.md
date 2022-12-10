@@ -34,11 +34,23 @@ Execution of plan.
 Communication with plugins.
 
 Commands -
-1. Refresh - Gets updated state of infrastructure from provider.
-2. Plan - Creates execution plan. Determines what actions are necessary to achieve the desired state.
-3. Apply - Executes the plan.
-4. Destroy - Destroy the infrastructure sequentially.
+1. Terraform Refresh - Gets updated state of infrastructure from provider.
+2. Terraform Plan - Creates execution plan. Determines what actions are necessary to achieve the desired state.
+3. Terraform Apply - Executes the plan.
+4. Terraform Destroy - Destroy the infrastructure sequentially, we dont have to know in which order you need to delete the resources.
+5. Terraform State - terraform maintains the current state and desired state
+  Terraform State list - used to list the provider resources
+  Terraform State show <resource_name> - used to see details of particular resource
+  Terraform State mv - 
+  Terraform State rm
+  Terraform State pull
+  Terraform State push
+  Terraform State replace-provider
 
 For development, you should install Terraform plugin in VSCode IDE.
 
+Terraform maintains the current state and desired state in files - 
+terrafrom.tfstate = stores current state of resources which are created in mentioned provider account
+terraform.tfstate.backup = stores previous state of resources which were created in mentioned provider account
 
+Output - we can print or reuse return values by this keyword as -
