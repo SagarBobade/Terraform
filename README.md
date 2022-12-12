@@ -54,3 +54,6 @@ terrafrom.tfstate = stores current state of resources which are created in menti
 terraform.tfstate.backup = stores previous state of resources which were created in mentioned provider account
 
 Output - we can print or reuse return values by this keyword as -
+
+Enter variable/pass value to a variable by 3 ways -
+1. 
