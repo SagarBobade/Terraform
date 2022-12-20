@@ -56,4 +56,31 @@ terraform.tfstate.backup = stores previous state of resources which were created
 Output - we can print or reuse return values by this keyword as -
 
 Enter variable/pass value to a variable by 3 ways -
-1. 
+1. While Terraform-apply command - we get prompt to enter value for variable - we need to declare using keyword "variable"
+2. While Terraform-apply command - pass commandline argument as - terraform apply -var  "variable_name=value"
+3. best practice and most efficient - using variable file - fileName.tfvars - declare variable there. same like yml file in ansible but in order to make it work we have to declare "variable" section in main.tf file.
+If we give variable file name as - "terraform.tfvars" then terraform will automatically recognize/find variable file and use their variables. 
+If we give different file name then - we have to pass variable file name as command - "terraform apply -var-file variable_filename.tfvars"
+
+Usecase for using variable = we can setup same infra for different types of environment like - QA, development etc. like ansible we can create different files for different environments.
+
+we can use feature of default value in terraform, which will make passing variable file optional.
+Also for variable, we can set variable type - Boolean, String, Number
+
+we can define list type of variable too and access nth number of variable in main.tf file as -
+in variblefile.tfvars file -
+subnet_cidr_block = ["172.31.48.0/20", "172.31.38.0/20"]
+
+in main.tf file -
+var.vpc_cidr_block[0]
+
+so we may update descritpion of variable section also (this is optional).
+
+likewise we can define type of "Object" too
+ex. 
+
+Do not useredentials directory inside script.
+There are 2 ways the credentials - 
+1. environmental variable - using "export AWS_SECRET_ACCESS_KEY=ABCD" - just use same variable name as it should be declare inside "provider" section.
+  check environmental variables using - "env | grep AWS" OR we can declare those credentials inside ~/.aws/credentials file. Terraform will automatically picked it up. If we are using this way then we can remove credentials/keys provided in Provider section of main.tf file. For this also we need to declare "variable" section.
+
