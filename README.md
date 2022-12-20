@@ -83,4 +83,13 @@ Do not useredentials directory inside script.
 There are 2 ways the credentials - 
 1. environmental variable - using "export AWS_SECRET_ACCESS_KEY=ABCD" - just use same variable name as it should be declare inside "provider" section.
   check environmental variables using - "env | grep AWS" OR we can declare those credentials inside ~/.aws/credentials file. Terraform will automatically picked it up. If we are using this way then we can remove credentials/keys provided in Provider section of main.tf file. For this also we need to declare "variable" section.
+2. If we want to use variable inside or append to other string then we need to use it as - "${var.environment}-otherString"
 
+
+Mini project -
+Create VPC
+Create Custom subnet
+Create Route table and Internet gateway - route table gets created automatically whenever we create vpc and NACL is firewall for subnet. Internet gateway is like 
+Provision EC2 instance
+Deploy nginx Docker container
+-Create security group (firewall)
