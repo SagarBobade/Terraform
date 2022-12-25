@@ -71,6 +71,10 @@ we can define list type of variable too and access nth number of variable in mai
 in variblefile.tfvars file -
 subnet_cidr_block = ["172.31.48.0/20", "172.31.38.0/20"]
 
+In data section -
+
+
+
 in main.tf file -
 var.vpc_cidr_block[0]
 
