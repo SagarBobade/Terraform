@@ -97,3 +97,69 @@ Create Route table and Internet gateway - route table gets created automatically
 Provision EC2 instance
 Deploy nginx Docker container
 -Create security group (firewall)
+
+
+Provisioners -
+Execute commands on virtual server, as a initial data when launching the instance. 
+This is to be done by Terraform Provisioners.
+1. "remote-exec" provisioner - invokes script on remote server after it is created. and it is done by two ways -
+    inline - list of commands
+    
+ex.
+in ec2 creation task -
+connection {
+        type = "ssh"
+        host = self.public_ip
+        user = "ec2-user"
+        private_key = file(var.private_key_location)
+}
+
+provisioner "remote_exec" {
+        inline = [
+            "export ENV=dev"
+            "mkdir newdir"
+        ]
+}
+
+and script - path
+provisioner "remote_exec" {
+    script = file("entry_script.sh")
+}
+ remember, entry_script.sh script must on remote server in order to exeute it.
+ But to pass that script on remote machine, there is another provisioner in terraform as "file"
+ so, this provisiooner is used to transfer file or directory from local to newly created server as below -
+ 
+ provisioner "file" {
+    source = "entry_script.sh"
+    destination =  "home/ubuntu/entry_script-on-ec2.sh"
+ }
+ 
+ we can execute provisioners on other resource too, but we have to keep connection section inside that provisioner section.
+ 
+ 2. local-exec provisioner - invokes a local executable/executes locally after a resource is created.
+ provisioner "local-exec" {
+    command = "echo after creation of resource"
+ }
+ 
+ But after all terraform does not recommend "remote_exec" provisioner. See more info in official documentation.
+ Execute commands on virtual server using user_data attribute instead of provisioners.
+ there are many reasons why not to use remote_exec provisioner like we can use Configuration management tools like ansible, chef, puppet for executing   commands on remote server or we can execute script from CICD tools like jenkins.
+ If provisioners gets failed then instance gets terminated.
+ 
+ 
+ Module -
+ If we write code in one single file then file will be huge and complex, no overview so there is another concept is as Module.
+ so, first we will break our file in to parts, logical parts of our configuration and we package them together in folders and these folders will represet as modules. And we can reuse them. We can make it parameterzed. also we can access output of modules as objects of created resources or its attributes.
+ like - Modules - webserver, vpc
+ There are already created modules by terraform, by other companies or individual developers. Also we can create our own modules.
+ 
+ Project structure should be -
+ main.tf
+ variables.tf
+ outputs.tf
+ providers.tf
+ modules
+ 
+ we dont have to link those files in to main.tf file, it gets linked automatically.
+  
+ 
