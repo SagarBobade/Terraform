@@ -149,7 +149,7 @@ provisioner "remote_exec" {
  
  Module -
  If we write code in one single file then file will be huge and complex, no overview so there is another concept is as Module.
- so, first we will break our file in to parts, logical parts of our configuration and we package them together in folders and these folders will represet as modules. And we can reuse them. We can make it parameterzed. also we can access output of modules as objects of created resources or its attributes.
+ so, first we will break our file in to parts, logical parts of our configuration and we package them together in folders and these folders will represet as modules. And we can reuse them. We can make it parameterzed like functions in programming language. also we can access output of modules as objects of created resources or its attributes.
  like - Modules - webserver, vpc
  There are already created modules by terraform, by other companies or individual developers. Also we can create our own modules.
  
@@ -161,5 +161,20 @@ provisioner "remote_exec" {
  modules
  
  we dont have to link those files in to main.tf file, it gets linked automatically.
+
+First of all, lets understand again -
+Values are defined in .tfvars file
+Set as values in variables.tf in root
+values are passed to child module as argument
+via variables.tf in child module
+
+ To use the user defined module in main.tf file and pass the arguments as below -
+  module "tempName" {
+     source = "modules/moduleName"
+     
+  }
   
- 
+  
+  
+  
+  
