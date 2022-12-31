@@ -175,6 +175,36 @@ via variables.tf in child module
   }
   
   
+ How to export resources attributes to parent module, like return values.
+ we will write something like below in output.tf file of module -
+ output "name" {
+    value = reourceType.resourceName
+ }
+And it will be priting the output.tf file after its module gets executed.
+Remember to execute command - terraform init before terraform apply, as whenever we do add or change module we will have to execute this command.
+
+You know, we can also use modules created by terraform, providers and community module. like aws-vpc, aws-subnet.
+Now read how it is defined in the official documentation.
+
+Shared remote storage -
+In order to use this project in team, everyone must have latest version of tf file.
+So we can store that file on aws s3 bucket.
+but in main.tf lets delcare the configuration as below -
+
+terraform {
+    required_version = ">=0.12"
+    backend "s3" {
+        bucket = "myapp-bucket"
+        key = "myapp/state.tfstate"
+        region = "ap-south-1"
+    }
+}
   
-  
-  
+Best practice using terraform -
+1. Do not change state file directly, change only by terraform command. Otherwise we will get an unexpected results.
+2. Use shared remote storage like S3.
+3. Do not execute terraform apply command by multiple team members at a time. You will get conflicts or unexpected results. Lock the state file until writing of state file is completed. In this way you can prevent concurrent runs to your state file. Look in to how to do it.
+4. Enable versioning feature of S3 bucket.
+5. Keep git versioning for tf file also. Consider terraform project also like an application project. Do branching, reviewing and testing before merging the feature branch code.
+6. Should be CICD pipeline, it should not executed by any team members machine.
+7. Keep seperate tfstate file for each environment.
