@@ -24,7 +24,9 @@ What are the Files consists in it -
 Difference between current and desired state is a Plan. i.e., Plan means what to Create/Update/Destroyed ?
 2. terrafrom.tfstate = stores current state of resources which are created in mentioned provider account. Terraform maintains the current state and desired state in files.
 3. terraform.tfstate.backup = stores previous state of resources which were created in mentioned provider account
-
+4. .tfvars - Values are defined in this file.
+5. variables.tf - Set as values in this file of root
+6. 
 
 ADD ALL FILES LIST AND INFO IN IT.
 
@@ -142,32 +144,28 @@ provisioner "remote_exec" {
     command = "echo after creation of resource"
  }
  
- But after all terraform does not recommend "remote_exec" provisioner. See more info in official documentation.
+ But after all terraform does not recommend "remote_exec" provisioner. See more info in official documentation. https://developer.hashicorp.com/terraform/language/resources/provisioners/syntax#provisioners-are-a-last-resort
  Execute commands on virtual server using user_data attribute instead of provisioners.
- there are many reasons why not to use remote_exec provisioner like we can use Configuration management tools like ansible, chef, puppet for executing   commands on remote server or we can execute script from CICD tools like jenkins.
+ We can use Configuration management tools like ansible, chef, puppet for executing   commands on remote server or we can execute script from CICD tools like jenkins.
  If provisioners gets failed then instance gets terminated.
- 
- 
+  
  Module -
- If we write code in one single file then file will be huge and complex, no overview so there is another concept is as Module.
- so, first we will break our file in to parts, logical parts of our configuration and we package them together in folders and these folders will represet as modules. And we can reuse them. We can make it parameterzed like functions in programming language. also we can access output of modules as objects of created resources or its attributes.
- like - Modules - webserver, vpc
- There are already created modules by terraform, by other companies or individual developers. Also we can create our own modules.
+ If we write code in one single file then file will be huge and complex, no overview. So there is another concept is called as Module.
+First we will break our file in to parts, "logical parts" of our configuration. We package them together in folders. These folders will represet as modules and we can reuse them. We can make it parameterzed like functions in programming language. also we can access output of modules as objects of created resources or its attributes.
  
- Project structure should be -
- main.tf
+There are already created modules by terraform, by other companies or individual developers. We can use them, also we can create our own modules.
+ 
+So, now the Project structure should be -
+ main.tf 
  variables.tf
  outputs.tf
  providers.tf
  modules
  
- we dont have to link those files in to main.tf file, it gets linked automatically.
+We dont have to link these files in to main.tf file. It gets linked automatically.
 
 First of all, lets understand again -
-Values are defined in .tfvars file
-Set as values in variables.tf in root
-values are passed to child module as argument
-via variables.tf in child module
+values are passed to child module as argument via variables.tf in child module.
 
  To use the user defined module in main.tf file and pass the arguments as below -
   module "tempName" {
@@ -182,7 +180,7 @@ via variables.tf in child module
     value = reourceType.resourceName
  }
 And it will be priting the output.tf file after its module gets executed.
-Remember to execute command - terraform init before terraform apply, as whenever we do add or change module we will have to execute this command.
+whenever we do add or change module we will have to execute the command - terraform init before terraform apply.
 
 You know, we can also use modules created by terraform, providers and community module. like aws-vpc, aws-subnet.
 Now read how it is defined in the official documentation.
