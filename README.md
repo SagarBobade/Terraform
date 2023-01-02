@@ -199,6 +199,20 @@ terraform {
     }
 }
 
+Run entry script
+Inside resource, using user_data keyword as below -
+
+user_data = <<EOF
+              #!/bin/bash
+              sudo yum update -y && sudo yum install -y docker
+            EOF
+This will executed only once, while create.
+And if you have large and complicated shell script, then we can simply write the -
+
+user_data = file("entry-script.sh")
+this shell script should be inside project which will be executed on remote resource once created. But for above both, we will not get error message if any step gets failed. Terraform doesn't have control over executing these code. Once infrastructure provisioning done of that resource then it passes the code to execute to the resource providre. AWS in our case.
+
+
 In detail you can find it on - https://developer.hashicorp.com/terraform/language
 Best practice using terraform -
 1. Do not change state file directly, change only by terraform command. Otherwise we will get an unexpected results.
