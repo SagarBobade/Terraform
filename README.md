@@ -1,5 +1,7 @@
 # Terraform
 
+Here we have described understanding of terraform.
+
 ### There are 3 main tasks of Terraform - 
 1. It is an infrastructure provisioning tool, means adding new servers, network configuration, adding Load balancer - configuration at infrastructure level.
 2. Configuration of provisioned infrastrucure - installing apps on servers, managing those apps, prepare infrastructure to deploy the app.
