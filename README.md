@@ -57,7 +57,7 @@ There are many providers - AWS, Azure, Kia, GCP, Alibaba etc. There are over 100
 
 For development, you should install Terraform plugin in VSCode IDE.
 
-## Output
+### Output
   we can print or reuse return values by this keyword as -
 ex. 
 ```
@@ -80,7 +80,9 @@ Also for variable, we can set variable type - Boolean, String, Number
 
 we can define list type of variable too and access nth number of variable in main.tf file as -
 in variblefile.tfvars file -
+```
 subnet_cidr_block = ["172.31.48.0/20", "172.31.38.0/20"]
+```
 
 In data section -
 
@@ -235,7 +237,9 @@ user_data = file("entry-script.sh")
 this shell script should be inside project which will be executed on remote resource once created. But for above both, we will not get error message if any step gets failed. Terraform doesn't have control over executing these code. Once infrastructure provisioning done of that resource then it passes the code to execute to the resource providre. AWS in our case.
 
 
-In detail you can find it on - https://developer.hashicorp.com/terraform/language
+### Reference links -
+https://developer.hashicorp.com/terraform/language
+https://developer.hashicorp.com/terraform/cli
 
 ### Best practice using terraform -
 1. Do not change state file directly, change only by terraform command. Otherwise we will get an unexpected results.
