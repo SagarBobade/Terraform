@@ -51,13 +51,13 @@ There are many providers - AWS, Azure, Kia, GCP, Alibaba etc. There are over 100
 4. Terraform Destroy - Usage : terraform destroy [options] - Destroy the infrastructure sequentially, we dont have to know in which order you need to delete the resources.
 5. Terraform init - Usage : Used to execute this command after a module gets added or updated.
 6. Terraform State - Usage : terraform maintains the current state and desired state.
-  Terraform State list - Usage : used to list the provider resources
-  Terraform State show - Usage : used to see details of particular resource
-  Terraform State mv - Usage : terraform state mv [options] SOURCE DESTINATION
-  Terraform State rm - Usage : TO ADD HERE
-  Terraform State pull - Usage : TO ADD HERE
-  Terraform State push - Usage : TO ADD HERE
-  Terraform State replace-provider - Usage : TO ADD HERE
+   - Terraform State list - Usage : used to list the provider resources
+   - Terraform State show - Usage : used to see details of particular resource
+   - Terraform State mv - Usage : terraform state mv [options] SOURCE DESTINATION
+   - Terraform State rm - Usage : TO ADD HERE
+   - Terraform State pull - Usage : TO ADD HERE
+   - Terraform State push - Usage : TO ADD HERE
+   - Terraform State replace-provider - Usage : TO ADD HERE
 
 For development, you should install Terraform plugin in VSCode IDE.
 
