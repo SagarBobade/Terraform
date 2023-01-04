@@ -64,9 +64,11 @@ For development, you should install Terraform plugin in VSCode IDE.
 
 Output - we can print or reuse return values by this keyword as -
 ex. 
+```
 output "instance_ip_addr" {
   value = aws_instance.server.private_ip
 }
+```
 
 Enter variable/pass value to a variable by 3 ways -
 1. While Terraform-apply command - we get prompt to enter value for variable - we need to declare using keyword "variable"
@@ -111,6 +113,7 @@ This is to be done by Terraform Provisioners.
     
 ex.
 in ec2 creation task -
+```
 connection {
         type = "ssh"
         host = self.public_ip
@@ -124,26 +127,35 @@ provisioner "remote_exec" {
             "mkdir newdir"
         ]
 }
+```
 
 and script - path
+```
 provisioner "remote_exec" {
     script = file("entry_script.sh")
 }
- remember, entry_script.sh script must on remote server in order to exeute it.
+```
+
+remember, entry_script.sh script must on remote server in order to exeute it.
  But to pass that script on remote machine, there is another provisioner in terraform as "file"
  so, this provisiooner is used to transfer file or directory from local to newly created server as below -
  
+ ```
  provisioner "file" {
     source = "entry_script.sh"
     destination =  "home/ubuntu/entry_script-on-ec2.sh"
  }
+```
  
  we can execute provisioners on other resource too, but we have to keep connection section inside that provisioner section.
  
  2. local-exec provisioner - invokes a local executable/executes locally after a resource is created.
- provisioner "local-exec" {
+
+```
+provisioner "local-exec" {
     command = "echo after creation of resource"
  }
+```
  
  But after all terraform does not recommend "remote_exec" provisioner. See more info in official documentation. https://developer.hashicorp.com/terraform/language/resources/provisioners/syntax#provisioners-are-a-last-resort
  Execute commands on virtual server using user_data attribute instead of provisioners.
@@ -157,11 +169,11 @@ First we will break our file in to parts, "logical parts" of our configuration. 
 There are already created modules by terraform, by other companies or individual developers. We can use them, also we can create our own modules.
  
 So, now the Project structure should be -
- main.tf 
- variables.tf
- outputs.tf
- providers.tf
- modules
+ - main.tf 
+ - variables.tf
+ - outputs.tf
+ - providers.tf
+ - modules
  
 We dont have to link these files in to main.tf file. It gets linked automatically.
 
@@ -169,17 +181,22 @@ First of all, lets understand again -
 values are passed to child module as argument via variables.tf in child module.
 
  To use the user defined module in main.tf file and pass the arguments as below -
-  module "tempName" {
+
+```
+module "tempName" {
      source = "modules/moduleName"
      
   }
+```
   
   
  How to export resources attributes to parent module, like return values.
  we will write something like below in output.tf file of module -
+```
  output "name" {
     value = reourceType.resourceName
  }
+```
 And it will be priting the output.tf file after its module gets executed.
 whenever we do add or change module we will have to execute the command - terraform init before terraform apply.
 
@@ -191,6 +208,7 @@ In order to use this project in team, everyone must have latest version of tf fi
 So we can store that file on aws s3 bucket.
 but in main.tf lets delcare the configuration as below -
 
+```
 terraform {
     required_version = ">=0.12"
     backend "s3" {
@@ -199,14 +217,17 @@ terraform {
         region = "ap-south-1"
     }
 }
+```
 
 ### Run entry script
 Inside resource, using user_data keyword as below -
 
+```
 user_data = <<EOF
               #!/bin/bash
               sudo yum update -y && sudo yum install -y docker
             EOF
+```
 This will executed only once, while create.
 And if you have large and complicated shell script, then we can simply write the -
 
