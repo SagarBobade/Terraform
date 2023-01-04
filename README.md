@@ -29,11 +29,6 @@ Difference between current and desired state is a Plan. i.e., Plan means what to
 4. .tfvars - Values are defined in this file.
 5. variables.tf - Set as values in this file of root
 
-ADD ALL FILES LIST AND INFO IN IT.
-
-
-
-
 ### What is its Core?
 It’s a binary written in Go programming language. The compiled binary corresponds to CLI terraform.
 Core is responsible for :
@@ -62,7 +57,8 @@ There are many providers - AWS, Azure, Kia, GCP, Alibaba etc. There are over 100
 
 For development, you should install Terraform plugin in VSCode IDE.
 
-Output - we can print or reuse return values by this keyword as -
+## Output
+  we can print or reuse return values by this keyword as -
 ex. 
 ```
 output "instance_ip_addr" {
@@ -70,7 +66,7 @@ output "instance_ip_addr" {
 }
 ```
 
-Enter variable/pass value to a variable by 3 ways -
+### Pass value to a variable by 3 ways 
 1. While Terraform-apply command - we get prompt to enter value for variable - we need to declare using keyword "variable"
 2. While Terraform-apply command - pass commandline argument as - terraform apply -var  "variable_name=value"
 3. best practice and most efficient - using variable file - fileName.tfvars - declare variable there. same like yml file in ansible but in order to make it work we have to declare "variable" section in main.tf file.
@@ -91,15 +87,17 @@ In data section -
 
 
 in main.tf file -
+```
 var.vpc_cidr_block[0]
+```
 
 so we may update descritpion of variable section also (this is optional).
 
 likewise we can define type of "Object" too
 ex. 
 
-Do not useredentials directory inside script.
-There are 2 ways the credentials - 
+Do not use useredentials directory inside script.
+**There are 2 ways the credentials -** 
 1. environmental variable - using "export AWS_SECRET_ACCESS_KEY=ABCD" - just use same variable name as it should be declare inside "provider" section.
   check environmental variables using - "env | grep AWS" OR we can declare those credentials inside ~/.aws/credentials file. Terraform will automatically picked it up. If we are using this way then we can remove credentials/keys provided in Provider section of main.tf file. For this also we need to declare "variable" section.
 2. If we want to use variable inside or append to other string then we need to use it as - "${var.environment}-otherString"
@@ -108,7 +106,9 @@ There are 2 ways the credentials -
 ### Provisioners -
 Execute commands on virtual server, as a initial data when launching the instance. 
 This is to be done by Terraform Provisioners.
-1. "remote-exec" provisioner - invokes script on remote server after it is created. and it is done by two ways -
+
+## "remote-exec" provisioner 
+    Invokes script on remote server after it is created. and it is done by two ways -
     inline - list of commands
     
 ex.
@@ -149,22 +149,22 @@ remember, entry_script.sh script must on remote server in order to exeute it.
  
  we can execute provisioners on other resource too, but we have to keep connection section inside that provisioner section.
  
- 2. local-exec provisioner - invokes a local executable/executes locally after a resource is created.
+ ## local-exec provisioner 
+    Invokes a local executable/executes locally after a resource is created.
 
 ```
 provisioner "local-exec" {
     command = "echo after creation of resource"
  }
 ```
- 
- But after all terraform does not recommend "remote_exec" provisioner. See more info in official documentation. https://developer.hashicorp.com/terraform/language/resources/provisioners/syntax#provisioners-are-a-last-resort
- Execute commands on virtual server using user_data attribute instead of provisioners.
- We can use Configuration management tools like ansible, chef, puppet for executing   commands on remote server or we can execute script from CICD tools like jenkins.
- If provisioners gets failed then instance gets terminated.
+But after all terraform does not recommend "remote_exec" provisioner. See more info in official documentation. https://developer.hashicorp.com/terraform/language/resources/provisioners/syntax#provisioners-are-a-last-resort
+    Execute commands on virtual server using user_data attribute instead of provisioners.
+    We can use Configuration management tools like ansible, chef, puppet for executing   commands on remote server or we can execute script from CICD tools like jenkins.
+    If provisioners gets failed then instance gets terminated.
   
  ### Module -
- If we write code in one single file then file will be huge and complex, no overview. So there is another concept is called as Module.
-First we will break our file in to parts, "logical parts" of our configuration. We package them together in folders. These folders will represet as modules and we can reuse them. We can make it parameterzed like functions in programming language. also we can access output of modules as objects of created resources or its attributes.
+  If we write code in one single file then file will be huge and complex, no overview. So there is another concept is called as Module.
+  First we will break our file in to parts, "logical parts" of our configuration. We package them together in folders. These folders will represet as       modules and we can reuse them. We can make it parameterzed like functions in programming language. also we can access output of modules as objects of     created resources or its attributes.
  
 There are already created modules by terraform, by other companies or individual developers. We can use them, also we can create our own modules.
  
