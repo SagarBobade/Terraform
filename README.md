@@ -135,8 +135,8 @@ This is to be done by Terraform Provisioners.
 
 
 ### remote-exec
-    Invokes script on remote server after it is created. and it is done by two ways -
-    inline - list of commands
+Invokes script on remote server after it is created. and it is done by two ways -
+inline - list of commands
     
 ex.
 in ec2 creation task -
@@ -177,7 +177,7 @@ remember, entry_script.sh script must on remote server in order to exeute it.
  we can execute provisioners on other resource too, but we have to keep connection section inside that provisioner section.
  
  ### local-exec
-    Invokes a local executable/executes locally after a resource is created.
+ Invokes a local executable/executes locally after a resource is created.
 
 ```
 provisioner "local-exec" {
