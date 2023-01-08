@@ -2,7 +2,7 @@
 
 Here we have described understanding of terraform.
 
-- [Tasks of Terraform](#Tasks of Terraform)
+- [Tasks of Terraform](#Tasks-of-Terraform)
 - [Difference between Ansible and Terraform](#Difference between Ansible and Terraform)
 - [Files consists in it](#Files consists in it)
 - [Terraform Core](#Terraform Core)
