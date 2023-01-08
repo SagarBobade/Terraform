@@ -272,7 +272,7 @@ https://developer.hashicorp.com/terraform/cli
 ## Best practice using terraform
 1. Do not change state file directly, change only by terraform command. Otherwise we will get an unexpected results.
 2. Use shared remote storage like S3.
-3. Do not execute terraform apply command by multiple team members at a time. You will get conflicts or unexpected results. Lock the state file until writing of state file is completed. In this way you can prevent concurrent runs to your state file. Look in to how to do it.
+3. Do not execute terraform apply command by multiple team members at a time. You will get conflicts or unexpected results. Lock the state file until writing of state file is completed. In this way you can prevent concurrent runs to your state file.
 4. Enable versioning feature of S3 bucket.
 5. Keep git versioning for tf file also. Consider terraform project also like an application project. Do branching, reviewing and testing before merging the feature branch code.
 6. Should be CICD pipeline, it should not executed by any team members machine.
