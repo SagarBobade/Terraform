@@ -3,22 +3,21 @@
 Here we have described understanding of terraform.
 
 - [Tasks of Terraform](#Tasks-of-Terraform)
-- [Difference between Ansible and Terraform](#Difference between Ansible and Terraform)
-- [Files consists in it](#Files consists in it)
-- [Terraform Core](#Terraform Core)
+- [Difference between Ansible and Terraform](#Difference-between-Ansible-and-Terraform)
+- [Terraform Files](#Terraform-Files)
+- [Terraform Core](#Terraform-Core)
 - [Commands](#Commands)
 - [Output](#Output)
-- [Pass value to a variable](#Pass value to a variable)
+- [Pass value to a variable](#Pass-value-to-a-variable)
 - [Provisioners](#Provisioners)
 - [remote-exec](#remote-exec)
 - [local-exec](#local-exec)
 - [Module](#Module)
-- [Shared remote storage](#Shared remote storage)
-- [Run entry script](#Run entry script)
-- [Run entry script](#Run entry script)
-- [Reference links](#Reference links)
-- [Best practice using terraform](#Best practice using terraform)
-- [Mini project](#Mini project)
+- [Shared remote storage](#Shared-remote-storage)
+- [Run entry script](#Run-entry-script)
+- [Reference links](#Reference-links)
+- [Best practice using terraform](#Best-practice-using-terraform)
+- [Mini project](#Mini-project)
 
 
 ### Tasks of Terraform
@@ -42,7 +41,7 @@ They can be differentiate in Procedural and declarative tools, some are mutable 
 It follows a declarative approach and not a procedural - In a declarative approach, you will tell what you need and NOT how it is to be done. Just say what you want in your Infrastructure, and it will manage all the necessary steps to get the things done
 
 
-### Files consists in it
+### Terraform Files
 1. main.tf - This file defines what to create / what will be the end result / desired state.
 Difference between current and desired state is a Plan. i.e., Plan means what to Create/Update/Destroyed ?
 2. terrafrom.tfstate = stores current state of resources which are created in mentioned provider account. Terraform maintains the current state and desired state in files.
