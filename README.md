@@ -2,6 +2,9 @@
 
 Here we have described understanding of terraform.
 
+[Commands](#Commands)
+
+
 ### There are 3 main tasks of Terraform - 
 1. It is an infrastructure provisioning tool, means adding new servers, network configuration, adding Load balancer - configuration at infrastructure level.
 2. Configuration of provisioned infrastrucure - installing apps on servers, managing those apps, prepare infrastructure to deploy the app.
@@ -44,7 +47,7 @@ Communication with plugins.
 There are many providers - AWS, Azure, Kia, GCP, Alibaba etc. There are over 100 providers are there.
 
 
-### Commands -
+### Commands
 1. Terraform Refresh - Usage : terraform refresh - Gets updated state of infrastructure from the provider.
 2. Terraform Plan - Usage : terraform plan [options]- Creates execution plan. Determines what actions are necessary to achieve the desired state.
 3. Terraform Apply - Usage : terraform apply [options] [plan file] - Executes the plan.
