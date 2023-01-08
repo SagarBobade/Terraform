@@ -2,10 +2,26 @@
 
 Here we have described understanding of terraform.
 
-[Commands](#Commands)
+- [Tasks of Terraform](#Tasks of Terraform)
+- [Difference between Ansible and Terraform](#Difference between Ansible and Terraform)
+- [Files consists in it](#Files consists in it)
+- [Terraform Core](#Terraform Core)
+- [Commands](#Commands)
+- [Output](#Output)
+- [Pass value to a variable](#Pass value to a variable)
+- [Provisioners](#Provisioners)
+- [remote-exec](#remote-exec)
+- [local-exec](#local-exec)
+- [Module](#Module)
+- [Shared remote storage](#Shared remote storage)
+- [Run entry script](#Run entry script)
+- [Run entry script](#Run entry script)
+- [Reference links](#Reference links)
+- [Best practice using terraform](#Best practice using terraform)
+- [Mini project](#Mini project)
 
 
-### There are 3 main tasks of Terraform - 
+### Tasks of Terraform
 1. It is an infrastructure provisioning tool, means adding new servers, network configuration, adding Load balancer - configuration at infrastructure level.
 2. Configuration of provisioned infrastrucure - installing apps on servers, managing those apps, prepare infrastructure to deploy the app.
 3. Deployment of application.
@@ -14,7 +30,7 @@ But you know, Docker can do both 2nd and 3rd task.
 Terraform and ansible can do somewhat similar tasks.
 
 
-### What is difference between Ansible and Terraform -
+### Difference between Ansible and Terraform
 1. Both IaC tools - Provisioning, Configuring and managing infrastructure.
 2. Ansible is mainly Configuration tool and Terraform is mainly infrastructure provisioning tool.
 3. Ansible is mature and Terraform is new. 
@@ -26,7 +42,7 @@ They can be differentiate in Procedural and declarative tools, some are mutable 
 It follows a declarative approach and not a procedural - In a declarative approach, you will tell what you need and NOT how it is to be done. Just say what you want in your Infrastructure, and it will manage all the necessary steps to get the things done
 
 
-### What are the Files consists in it -
+### Files consists in it
 1. main.tf - This file defines what to create / what will be the end result / desired state.
 Difference between current and desired state is a Plan. i.e., Plan means what to Create/Update/Destroyed ?
 2. terrafrom.tfstate = stores current state of resources which are created in mentioned provider account. Terraform maintains the current state and desired state in files.
@@ -35,7 +51,7 @@ Difference between current and desired state is a Plan. i.e., Plan means what to
 5. variables.tf - Set as values in this file of root
 
 
-### What is its Core?
+### Terraform Core
 It’s a binary written in Go programming language. The compiled binary corresponds to CLI terraform.
 Core is responsible for :
 Reading the configuration files, i.e., IaC.
@@ -74,7 +90,7 @@ output "instance_ip_addr" {
 }
 ```
 
-### Pass value to a variable by 3 ways 
+### Pass value to a variable
 1. While Terraform-apply command - we get prompt to enter value for variable - we need to declare using keyword "variable"
 2. While Terraform-apply command - pass commandline argument as - terraform apply -var  "variable_name=value"
 3. best practice and most efficient - using variable file - fileName.tfvars - declare variable there. same like yml file in ansible but in order to make it work we have to declare "variable" section in main.tf file.
@@ -114,12 +130,12 @@ Do not use useredentials directory inside script.
 2. If we want to use variable inside or append to other string then we need to use it as - "${var.environment}-otherString"
 
 
-### Provisioners -
+### Provisioners
 Execute commands on virtual server, as a initial data when launching the instance. 
 This is to be done by Terraform Provisioners.
 
 
-## "remote-exec" provisioner 
+## remote-exec
     Invokes script on remote server after it is created. and it is done by two ways -
     inline - list of commands
     
@@ -161,7 +177,7 @@ remember, entry_script.sh script must on remote server in order to exeute it.
  
  we can execute provisioners on other resource too, but we have to keep connection section inside that provisioner section.
  
- ## local-exec provisioner 
+ ## local-exec
     Invokes a local executable/executes locally after a resource is created.
 
 ```
@@ -175,7 +191,7 @@ But after all terraform does not recommend "remote_exec" provisioner. See more i
     If provisioners gets failed then instance gets terminated.
   
  
- ### Module -
+ ### Module
   If we write code in one single file then file will be huge and complex, no overview. So there is another concept is called as Module.
   First we will break our file in to parts, "logical parts" of our configuration. We package them together in folders. These folders will represet as       modules and we can reuse them. We can make it parameterzed like functions in programming language. also we can access output of modules as objects of     created resources or its attributes.
  
@@ -217,7 +233,7 @@ You know, we can also use modules created by terraform, providers and community 
 Now read how it is defined in the official documentation.
 
 
-### Shared remote storage -
+### Shared remote storage
 In order to use this project in team, everyone must have latest version of tf file.
 So we can store that file on aws s3 bucket.
 but in main.tf lets delcare the configuration as below -
@@ -249,12 +265,12 @@ user_data = file("entry-script.sh")
 this shell script should be inside project which will be executed on remote resource once created. But for above both, we will not get error message if any step gets failed. Terraform doesn't have control over executing these code. Once infrastructure provisioning done of that resource then it passes the code to execute to the resource providre. AWS in our case.
 
 
-### Reference links -
+### Reference links
 https://developer.hashicorp.com/terraform/language
 https://developer.hashicorp.com/terraform/cli
 
 
-### Best practice using terraform -
+### Best practice using terraform
 1. Do not change state file directly, change only by terraform command. Otherwise we will get an unexpected results.
 2. Use shared remote storage like S3.
 3. Do not execute terraform apply command by multiple team members at a time. You will get conflicts or unexpected results. Lock the state file until writing of state file is completed. In this way you can prevent concurrent runs to your state file. Look in to how to do it.
@@ -264,7 +280,7 @@ https://developer.hashicorp.com/terraform/cli
 7. Keep seperate tfstate file for each environment.
 
 
-### Mini project -
+### Mini project
 Create VPC
 Create Custom subnet
 Create Route table and Internet gateway - route table gets created automatically whenever we create vpc and NACL is firewall for subnet. Internet gateway is like 
