@@ -14,7 +14,7 @@ Here we have described understanding of terraform.
 - [local-exec](#local-exec)
 - [Module](#Module)
 - [Shared remote storage](#Shared-remote-storage)
-- [Run entry script](#Run-entry-script)
+- [Entry script](#Entry-script)
 - [Reference links](#Reference-links)
 - [Best practice using terraform](#Best-practice-using-terraform)
 - [Mini project](#Mini-project)
@@ -248,7 +248,7 @@ terraform {
 }
 ```
 
-### Run entry script
+### Entry script
 Inside resource, using user_data keyword as below -
 
 ```
