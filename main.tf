@@ -2,35 +2,60 @@
 // we are providing terraform that in order to connect to provider, use below credential
 
 provider "aws" {
-  region = "ap-south-1"
-  access_key = "ABCD"
-  secret_key = "WXYZ"
+  region = var.region
+  access_key = var.access_key
+  secret_key = var.secret_key
 }
 
+variable "access_key" {}
+variable "secret_key" {}
 
-// resource "provider_resource_type" name
+variable "region" {
+  description = "this to be region"
+}
+variable "vpc_cidr_block" {}
+variable "vpc_tag_name" {}
+variable "availability_zone" {}
+
+variable "public_subnet_cidr_block" {}
+variable "public_subnet_tag_name" {}
+
+variable "private_subnet_cidr_block" {}
+variable "private_subnet_tag_name" {}
+
+variable "internet_gateway_tag_name" {}
+
+variable "route_table_tag_name" {}
+
+variable "security_group_name" {}
+
+variable "ec2_instance_ami" {}
+variable "ec2_instance_type" {}
+variable "ec2_key_name" {}
+variable "ec2_tag_name" {}
+
 resource "aws_vpc" "dev-vpc" {
-  cidr_block = "10.0.0.0/16"
+  cidr_block = var.vpc_cidr_block
   tags = {
-    Name = "dev"
+    Name = var.vpc_tag_name
   }
 }
 
  resource "aws_subnet" "dev-public-subnet" {
   vpc_id = aws_vpc.dev-vpc.id
-  cidr_block = "10.0.2.0/24"
-  availability_zone = "ap-south-1a"
+  cidr_block = var.public_subnet_cidr_block
+  availability_zone = var.availability_zone
   tags = {
-    Name = "dev-public-subnet"
+    Name = var.public_subnet_tag_name
   }
 }
 
 resource "aws_subnet" "dev-private-subnet" {
   vpc_id = aws_vpc.dev-vpc.id
-  cidr_block = "10.0.0.0/24"
-  availability_zone = "ap-south-1a"
+  cidr_block = var.private_subnet_cidr_block
+  availability_zone = var.availability_zone
   tags = {
-    Name = "dev-private-subnet"
+    Name = var.private_subnet_cidr_block
   }
 }
 
@@ -38,7 +63,7 @@ resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.dev-vpc.id
 
   tags = {
-    Name = "main"
+    Name = var.internet_gateway_tag_name
   }
 }
 
@@ -52,21 +77,21 @@ resource "aws_route_table" "route_table" {
 
   route {
     ipv6_cidr_block = "::/0"
-    gateway_id      = aws_internet_gateway.igw.id
+    gateway_id = aws_internet_gateway.igw.id
   }
 
   tags = {
-    Name = "dev-route-table"
+    Name = var.route_table_tag_name
   }
 }
 
 resource "aws_route_table_association" "a" {
-  subnet_id      = aws_subnet.dev-public-subnet.id
+  subnet_id = aws_subnet.dev-public-subnet.id
   route_table_id = aws_route_table.route_table.id
 }
 
 resource "aws_security_group" "dev-sg" {
-  name   = "HTTP and SSH"
+  name   = var.security_group_name
   vpc_id = aws_vpc.dev-vpc.id
 
  ingress {
@@ -92,21 +117,19 @@ resource "aws_security_group" "dev-sg" {
 }
 
 resource "aws_instance" "web_instance" {
-  ami           = "ami-0caf778a172362f1c"
-  instance_type = "t2.micro"
-  key_name      = "sagar"
+  ami           = var.ec2_instance_ami
+  instance_type = var.ec2_instance_type
+  key_name      = var.ec2_key_name
 
   subnet_id                   = aws_subnet.dev-public-subnet.id
   vpc_security_group_ids      = [aws_security_group.dev-sg.id]
   associate_public_ip_address = true
 
   tags = {
-    "Name" : "my-ec2"
+    "Name" : var.ec2_tag_name
   }
 }
 
-
-// Display output
 output "vpc_id" {
   value = aws_vpc.dev-vpc.id
 }

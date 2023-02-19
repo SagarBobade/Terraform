@@ -1,5 +1,9 @@
 # Terraform
 
+## How to run above project
+1. Pass the value of variables access_key and secret_key
+2. Run command- terraform apply -var-file dev-env.tfvars
+
 Here we have described understanding of terraform.
 
 - [Tasks of Terraform](#Tasks-of-Terraform)
