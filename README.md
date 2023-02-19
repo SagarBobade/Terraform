@@ -25,8 +25,8 @@ Here we have described understanding of terraform.
 
 
 ## Tasks of Terraform
-1. It is an infrastructure provisioning tool, means adding new servers, network configuration, adding Load balancer - configuration at infrastructure level.
-2. Configuration of provisioned infrastrucure - installing apps on servers, managing those apps, prepare infrastructure to deploy the app.
+1. It is an infrastructure provisioning tool, means adding new Servers, Network configuration, adding Load balancer, i.e., Configuration at infrastructure level.
+2. Configuration of provisioned infrastrucure - Installing apps on servers, Managing those apps, Preparing infrastructure to deploy the app.
 3. Deployment of application.
 
 But you know, Docker can do both 2nd and 3rd task.
@@ -34,37 +34,37 @@ Terraform and ansible can do somewhat similar tasks.
 
 
 ## Difference between Ansible and Terraform
-1. Both IaC tools - Provisioning, Configuring and managing infrastructure.
+1. Both are IaC tools - Provisioning, Configuring and managing infrastructure.
 2. Ansible is mainly Configuration tool and Terraform is mainly infrastructure provisioning tool.
 3. Ansible is mature and Terraform is new. 
 4. Both can be used at a time.
 
 There are many tools available in the market for these tasks, but they can not do all tasks all alone. 
-They can be differentiate in Procedural and declarative tools, some are mutable and immutable tools and some are agent and agentless tools.
+They can be differentiate in Procedural and Declarative tools, some are mutable and immutable tools and some are agent and agentless tools.
 
-It follows a declarative approach and not a procedural - In a declarative approach, you will tell what you need and NOT how it is to be done. Just say what you want in your Infrastructure, and it will manage all the necessary steps to get the things done
+Terraform follows a declarative approach and not a procedural - In a declarative approach, you will tell what you need and NOT how it is to be done. 
+Just say what you want in your Infrastructure and it will manage all the necessary steps to get the things done.
 
 
 ## Terraform Files
 1. main.tf - This file defines what to create / what will be the end result / desired state.
 Difference between current and desired state is a Plan. i.e., Plan means what to Create/Update/Destroyed ?
-2. terrafrom.tfstate = stores current state of resources which are created in mentioned provider account. Terraform maintains the current state and desired state in files.
-3. terraform.tfstate.backup = stores previous state of resources which were created in mentioned provider account
+2. terrafrom.tfstate = It stores current state of resources which are created in mentioned provider account. Terraform maintains the current state and desired state in files.
+3. terraform.tfstate.backup = It stores previous state of resources which were created in mentioned provider account.
 4. .tfvars - Values are defined in this file.
 5. variables.tf - Set as values in this file of root
 
 
 ## Terraform Core
-It’s a binary written in Go programming language. The compiled binary corresponds to CLI terraform.
-Core is responsible for :
-Reading the configuration files, i.e., IaC.
-State management of various resources.
-Construction of resource graph.
-Execution of plan.
-Communication with plugins.
+- It’s a binary file written in Go programming language. The compiled binary corresponds to CLI terraform.
+- Core is responsible for :
+  - Reading the configuration files, i.e., IaC.
+  - State management of various resources.
+  - Construction of resource graph.
+  - Execution of plan.
+  - Communication with plugins.
 
 There are many providers - AWS, Azure, Kia, GCP, Alibaba etc. There are over 100 providers are there.
-
 
 ## Commands
 1. Terraform Refresh - Usage : terraform refresh - Gets updated state of infrastructure from the provider.
@@ -82,7 +82,6 @@ There are many providers - AWS, Azure, Kia, GCP, Alibaba etc. There are over 100
    - Terraform State replace-provider - Usage : TO ADD HERE
 
 For development, you should install Terraform plugin in VSCode IDE.
-
 
 ## Output
   we can print or reuse return values by this keyword as -
