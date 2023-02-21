@@ -1,8 +1,9 @@
 # Terraform
 
 ## How to run above project
-1. Pass the value of variables access_key and secret_key
-2. Run command- terraform apply -var-file dev-env.tfvars
+1. Pass the value of variables `access_key` and `secret_key`
+2. To create resources from script run command- `terraform apply -var-file dev-env.tfvars` or `terraform apply -var-file qa-env.tfvars`
+3. And to delete the created resources run command - `terraform destroy -var-file dev-env.tfvars` or `terraform destroy -var-file qa-env.tfvars`
 
 Here we have described understanding of terraform.
 
@@ -29,8 +30,8 @@ Here we have described understanding of terraform.
 2. Configuration of provisioned infrastrucure - Installing apps on servers, Managing those apps, Preparing infrastructure to deploy the app.
 3. Deployment of application.
 
-But you know, Docker can do both 2nd and 3rd task.
-Terraform and ansible can do somewhat similar tasks.
+* But you know, Docker can do both 2nd and 3rd task.
+* Terraform and ansible can do somewhat similar tasks.
 
 
 ## Difference between Ansible and Terraform
@@ -39,10 +40,10 @@ Terraform and ansible can do somewhat similar tasks.
 3. Ansible is mature and Terraform is new. 
 4. Both can be used at a time.
 
-There are many tools available in the market for these tasks, but they can not do all tasks all alone. 
+* There are many tools available in the market for these tasks, but they can not do all tasks all alone. 
 They can be differentiate in Procedural and Declarative tools, some are mutable and immutable tools and some are agent and agentless tools.
 
-Terraform follows a declarative approach and not a procedural - In a declarative approach, you will tell what you need and NOT how it is to be done. 
+* Terraform follows a declarative approach and not a procedural - In a declarative approach, you will tell what you need and NOT how it is to be done. 
 Just say what you want in your Infrastructure and it will manage all the necessary steps to get the things done.
 
 
@@ -64,10 +65,10 @@ Difference between current and desired state is a Plan. i.e., Plan means what to
   - Execution of plan.
   - Communication with plugins.
 
-There are many providers - AWS, Azure, Kia, GCP, Alibaba etc. There are over 100 providers are there.
+* There are many providers - AWS, Azure, Kia, GCP, Alibaba etc. There are over 100 providers are there.
 
 ## Commands
-1. Terraform Refresh - Usage : terraform refresh - Gets updated state of infrastructure from the provider.
+1. `Terraform Refresh` - Usage : terraform refresh - Gets updated state of infrastructure from the provider.
 2. Terraform Plan - Usage : terraform plan [options]- Creates execution plan. Determines what actions are necessary to achieve the desired state.
 3. Terraform Apply - Usage : terraform apply [options] [plan file] - Executes the plan.
 4. Terraform Destroy - Usage : terraform destroy [options] - Destroy the infrastructure sequentially, we dont have to know in which order you need to delete the resources.
