@@ -7,22 +7,22 @@
 
 Here we have described understanding of terraform.
 
-- [Tasks of Terraform](#Tasks-of-Terraform)
-- [Difference between Ansible and Terraform](#Difference-between-Ansible-and-Terraform)
-- [Terraform Files](#Terraform-Files)
-- [Terraform Core](#Terraform-Core)
-- [Commands](#Commands)
-- [Output](#Output)
-- [Pass value to a variable](#Pass-value-to-a-variable)
-- [Provisioners](#Provisioners)
+- [Tasks of Terraform](#tasks-of-terraform)
+- [Difference between Ansible and Terraform](#difference-between-ansible-and-terraform)
+- [Terraform Files](#terraform-files)
+- [Terraform Core](#terraform-core)
+- [Commands](#commands)
+- [Output](#output)
+- [Pass value to a variable](#pass-value-to-a-variable)
+- [Provisioners](#provisioners)
 - [remote-exec](#remote-exec)
 - [local-exec](#local-exec)
-- [Module](#Module)
-- [Shared remote storage](#Shared-remote-storage)
-- [Entry script](#Entry-script)
-- [Reference links](#Reference-links)
-- [Best practice using terraform](#Best-practice-using-terraform)
-- [Mini project](#Mini-project)
+- [Module](#module)
+- [Shared remote storage](#shared-remote-storage)
+- [Entry script](#entry-script)
+- [Reference links](#reference-links)
+- [Best practice using terraform](#best-practice-using-terraform)
+- [Mini project](#mini-project)
 
 
 ## Tasks of Terraform
@@ -68,19 +68,19 @@ Difference between current and desired state is a Plan. i.e., Plan means what to
 * There are many providers - AWS, Azure, Kia, GCP, Alibaba etc. There are over 100 providers are there.
 
 ## Commands
-1. `Terraform Refresh` - Usage : terraform refresh - Gets updated state of infrastructure from the provider.
-2. Terraform Plan - Usage : terraform plan [options]- Creates execution plan. Determines what actions are necessary to achieve the desired state.
-3. Terraform Apply - Usage : terraform apply [options] [plan file] - Executes the plan.
-4. Terraform Destroy - Usage : terraform destroy [options] - Destroy the infrastructure sequentially, we dont have to know in which order you need to delete the resources.
-5. Terraform init - Usage : Used to execute this command after a module gets added or updated.
-6. Terraform State - Usage : terraform maintains the current state and desired state.
-   - Terraform State list - Usage : used to list the provider resources
-   - Terraform State show - Usage : used to see details of particular resource
-   - Terraform State mv - Usage : terraform state mv [options] SOURCE DESTINATION
-   - Terraform State rm - Usage : TO ADD HERE
-   - Terraform State pull - Usage : TO ADD HERE
-   - Terraform State push - Usage : TO ADD HERE
-   - Terraform State replace-provider - Usage : TO ADD HERE
+1. **Terraform Refresh** - Usage : `terraform refresh` - Gets updated state of infrastructure from the provider.
+2. **Terraform Plan** - Usage : `terraform plan -var-file dev-env.tfvars` - Creates execution plan. Determines what actions are necessary to achieve the desired state.
+3. **Terraform Apply** - Usage : `terraform apply -var-file dev-env.tfvars` - Executes the plan.
+4. **Terraform Destroy** - Usage : `terraform destroy -var-file dev-env.tfvars` - Destroy the infrastructure sequentially, we dont have to know in which order you need to delete the resources.
+5. **Terraform init** - Usage : Used to execute this command after a module gets added or updated.
+6. **Terraform State** - Usage : terraform maintains the current state and desired state.
+   - `terraform state list` - Usage : `terraform state list` -  used to see what resources are currently present.
+   - `terraform state show` - Usage : `terraform state show aws_vpc.dev-vpc` - used to see details of particular resource
+   - `terraform state mv` - Usage : used to rename or move resource.
+   - `terraform state rm` - Usage : TO ADD HERE
+   - `terraform state pull` - Usage : TO ADD HERE
+   - `terraform state push` - Usage : TO ADD HERE
+   - `terraform state replace-provider` - Usage : TO ADD HERE
 
 For development, you should install Terraform plugin in VSCode IDE.
 
