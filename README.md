@@ -82,7 +82,7 @@ Difference between current and desired state is a Plan. i.e., Plan means what to
    - `terraform state push` - Usage : TO ADD HERE
    - `terraform state replace-provider` - Usage : TO ADD HERE
 
-For development, you should install Terraform plugin in VSCode IDE.
+* For development, you should install `Terraform` plugin in VSCode IDE.
 
 ## Output
   we can print or reuse return values by this keyword as -
@@ -93,42 +93,38 @@ output "instance_ip_addr" {
 }
 ```
 
-## Pass value to a variable
-1. While Terraform-apply command - we get prompt to enter value for variable - we need to declare using keyword "variable"
-2. While Terraform-apply command - pass commandline argument as - terraform apply -var  "variable_name=value"
-3. best practice and most efficient - using variable file - fileName.tfvars - declare variable there. same like yml file in ansible but in order to make it work we have to declare "variable" section in main.tf file.
-If we give variable file name as - "terraform.tfvars" then terraform will automatically recognize/find variable file and use their variables. 
-If we give different file name then - we have to pass variable file name as command - "terraform apply -var-file variable_filename.tfvars"
+## Passing value to a variable
+1. While `Terraform-apply` command - we get prompt to enter value for variable - we need to declare using keyword `variable`
+2. While `Terraform-apply` command - pass commandline argument as - terraform apply -var  `variable_name=value`
+3. best practice and most efficient - using variable file - `fileName.tfvars` - declare variable there. same like yml file in ansible but in order to make it work we have to declare `variable` section in `main.tf` file.
+If we give variable file name as - `terraform.tfvars` then terraform will automatically recognize/find variable file and use their variables. 
+If we give different file name then - we have to pass variable file name as command - `terraform apply -var-file variable_filename.tfvars`
 
-Usecase for using variable = we can setup same infra for different types of environment like - QA, development etc. like ansible we can create different files for different environments.
+* Usecase for using variable - we can setup same infra for different types of environment like - QA, development etc. like ansible we can create different files for different environments.
+* We can use feature of default value in terraform, which will make passing variable file optional.
+* Also for variable, we can set variable type - `Boolean`, `String`, `Number`
 
-we can use feature of default value in terraform, which will make passing variable file optional.
-Also for variable, we can set variable type - Boolean, String, Number
-
-we can define list type of variable too and access nth number of variable in main.tf file as -
-in variblefile.tfvars file -
+we can define list type of variable too and access nth number of variable in script as -
+Below `variblefile.tfvars` file -
 ```
 subnet_cidr_block = ["172.31.48.0/20", "172.31.38.0/20"]
 ```
-
 In data section -
 
 
 
-in main.tf file -
+in `main.tf` file -
 ```
 var.vpc_cidr_block[0]
 ```
-
 so we may update descritpion of variable section also (this is optional).
 
 likewise we can define type of "Object" too
 ex. 
-
 Do not use useredentials directory inside script.
 
-**There are 2 ways the credentials -** 
-1. environmental variable - using "export AWS_SECRET_ACCESS_KEY=ABCD" - just use same variable name as it should be declare inside "provider" section.
+**There are 2 ways to manage credentials -** 
+1. Environmental variable - using "export AWS_SECRET_ACCESS_KEY=ABCD" - just use same variable name as it should be declare inside "provider" section.
   check environmental variables using - "env | grep AWS" OR we can declare those credentials inside ~/.aws/credentials file. Terraform will automatically picked it up. If we are using this way then we can remove credentials/keys provided in Provider section of main.tf file. For this also we need to declare "variable" section.
 2. If we want to use variable inside or append to other string then we need to use it as - "${var.environment}-otherString"
 
@@ -136,7 +132,6 @@ Do not use useredentials directory inside script.
 ## Provisioners
 Execute commands on virtual server, as a initial data when launching the instance. 
 This is to be done by Terraform Provisioners.
-
 
 ### remote-exec
 Invokes script on remote server after it is created. and it is done by two ways -
@@ -167,7 +162,7 @@ provisioner "remote_exec" {
 }
 ```
 
-remember, entry_script.sh script must on remote server in order to exeute it.
+Remember, entry_script.sh script must on remote server in order to exeute it.
  But to pass that script on remote machine, there is another provisioner in terraform as "file"
  so, this provisiooner is used to transfer file or directory from local to newly created server as below -
  
@@ -188,10 +183,10 @@ provisioner "local-exec" {
     command = "echo after creation of resource"
  }
 ```
-But after all terraform does not recommend "remote_exec" provisioner. See more info in official documentation. https://developer.hashicorp.com/terraform/language/resources/provisioners/syntax#provisioners-are-a-last-resort
-    Execute commands on virtual server using user_data attribute instead of provisioners.
-    We can use Configuration management tools like ansible, chef, puppet for executing   commands on remote server or we can execute script from CICD tools like jenkins.
-    If provisioners gets failed then instance gets terminated.
+* But after all terraform does not recommend "remote_exec" provisioner. See more info in official documentation. https://developer.hashicorp.com/terraform/language/resources/provisioners/syntax#provisioners-are-a-last-resort
+* Execute commands on virtual server using user_data attribute instead of provisioners.
+* We can use Configuration management tools like ansible, chef, puppet for executing   commands on remote server or we can execute script from CICD tools like jenkins.
+* If provisioners gets failed then instance gets terminated.
   
  
  ## Module
@@ -220,8 +215,6 @@ module "tempName" {
      
   }
 ```
-  
-  
  How to export resources attributes to parent module, like return values.
  we will write something like below in output.tf file of module -
 ```
@@ -234,7 +227,6 @@ whenever we do add or change module we will have to execute the command - terraf
 
 You know, we can also use modules created by terraform, providers and community module. like aws-vpc, aws-subnet.
 Now read how it is defined in the official documentation.
-
 
 ## Shared remote storage
 In order to use this project in team, everyone must have latest version of tf file.
@@ -264,7 +256,7 @@ user_data = <<EOF
 This will executed only once, while create.
 And if you have large and complicated shell script, then we can simply write the -
 
-user_data = file("entry-script.sh")
+`user_data = file("entry-script.sh")`
 this shell script should be inside project which will be executed on remote resource once created. But for above both, we will not get error message if any step gets failed. Terraform doesn't have control over executing these code. Once infrastructure provisioning done of that resource then it passes the code to execute to the resource providre. AWS in our case.
 
 
@@ -284,10 +276,10 @@ https://developer.hashicorp.com/terraform/cli
 
 
 ## Mini project
-Create VPC
-Create Custom subnet
-Create Route table and Internet gateway - route table gets created automatically whenever we create vpc and NACL is firewall for subnet. Internet gateway is like 
-Provision EC2 instance
-Deploy nginx Docker container
--Create security group (firewall)
+* Create VPC
+* Create Custom subnet
+* Create Route table and Internet gateway - route table gets created automatically whenever we create vpc and NACL is firewall for subnet. Internet gateway is like 
+* Create security group (firewall)
+* Provision EC2 instance
+* Deploy nginx Docker container
 
