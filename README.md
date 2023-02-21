@@ -283,3 +283,4 @@ https://developer.hashicorp.com/terraform/cli
 * Provision EC2 instance
 * Deploy nginx Docker container
 
+**Run code from this repository as i mentioned on top**
