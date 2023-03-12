@@ -1,12 +1,6 @@
 
 // we are providing terraform that in order to connect to provider, use below credential
 
-provider "aws" {
-  region = var.region
-  access_key = var.access_key
-  secret_key = var.secret_key
-}
-
 resource "aws_vpc" "dev-vpc" {
   cidr_block = var.vpc_cidr_block
   tags = {
