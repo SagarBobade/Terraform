@@ -8,53 +8,16 @@ resource "aws_vpc" "dev-vpc" {
   }
 }
 
- resource "aws_subnet" "dev-public-subnet" {
-  vpc_id = aws_vpc.dev-vpc.id
-  cidr_block = var.public_subnet_cidr_block
+module "myvpc" {
+  source = "./modules/vpc"
+  vpc_cidr_block = var.vpc_cidr_block
   availability_zone = var.availability_zone
-  tags = {
-    Name = var.public_subnet_tag_name
-  }
-}
-
-resource "aws_subnet" "dev-private-subnet" {
-  vpc_id = aws_vpc.dev-vpc.id
-  cidr_block = var.private_subnet_cidr_block
-  availability_zone = var.availability_zone
-  tags = {
-    Name = var.private_subnet_cidr_block
-  }
-}
-
-resource "aws_internet_gateway" "igw" {
-  vpc_id = aws_vpc.dev-vpc.id
-
-  tags = {
-    Name = var.internet_gateway_tag_name
-  }
-}
-
-resource "aws_route_table" "route_table" {
-  vpc_id = aws_vpc.dev-vpc.id
-
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.igw.id
-  }
-
-  route {
-    ipv6_cidr_block = "::/0"
-    gateway_id = aws_internet_gateway.igw.id
-  }
-
-  tags = {
-    Name = var.route_table_tag_name
-  }
-}
-
-resource "aws_route_table_association" "a" {
-  subnet_id = aws_subnet.dev-public-subnet.id
-  route_table_id = aws_route_table.route_table.id
+  private_subnet_cidr_block = var.private_subnet_cidr_block
+  internet_gateway_tag_name = var.internet_gateway_tag_name
+  route_table_tag_name = var.route_table_tag_name
+  vpc_Id = aws_vpc.dev-vpc.id
+  public_subnet_tag_name = var.public_subnet_tag_name
+  public_subnet_cidr_block = var.public_subnet_cidr_block
 }
 
 resource "aws_security_group" "dev-sg" {
@@ -88,7 +51,7 @@ resource "aws_instance" "web_instance" {
   instance_type = var.ec2_instance_type
   key_name      = var.ec2_key_name
 
-  subnet_id                   = aws_subnet.dev-public-subnet.id
+  subnet_id                   = module.myvpc.subnet.id
   vpc_security_group_ids      = [aws_security_group.dev-sg.id]
   associate_public_ip_address = true
 
