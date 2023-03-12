@@ -1,5 +1,5 @@
-access_key = "ABCD"
-secret_key = "WXYZ"
+access_key = "AKIA3UQUFSHTJLMQIOM4"
+secret_key = "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"
 region = "ap-south-1"
 vpc_cidr_block = "10.0.0.0/16"
 vpc_tag_name = "dev"
