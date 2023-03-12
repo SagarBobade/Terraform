@@ -46,16 +46,12 @@ resource "aws_security_group" "dev-sg" {
   }
 }
 
-resource "aws_instance" "web_instance" {
-  ami           = var.ec2_instance_ami
-  instance_type = var.ec2_instance_type
-  key_name      = var.ec2_key_name
-
+module "web_instance" {
+  source = "./modules/ec2"
+  ec2_instance_ami  = var.ec2_instance_ami
+  ec2_instance_type = var.ec2_instance_type
+  ec2_key_name      = var.ec2_key_name
   subnet_id                   = module.myvpc.subnet.id
-  vpc_security_group_ids      = [aws_security_group.dev-sg.id]
-  associate_public_ip_address = true
-
-  tags = {
-    "Name" : var.ec2_tag_name
-  }
+  vpc_security_group_ids      = aws_security_group.dev-sg.id
+  ec2_tag_name = var.ec2_tag_name
 }

@@ -4,9 +4,5 @@ output "vpc_id" {
 }
 
 output "aws_security_group_id" {
-  value = aws_security_group.dev-sg.id  
-}
-
-output "aws_instance_id" {
-  value = aws_instance.web_instance.id
+  value = aws_security_group.dev-sg
 }
