@@ -11,3 +11,18 @@ resource "aws_instance" "web_instance" {
     "Name" : var.ec2_tag_name
   }
 }
+
+resource "null_resource" "example" {
+  provisioner "remote-exec" {
+    inline = [
+        "sudo ansible-playbook /home/ubuntu/configure.yml -i my-hosts"
+    ]
+
+    connection {
+      type        = "ssh"
+      user        = "ubuntu"
+      private_key = "${file("/home/sagar/Desktop/Keys/dev-sagar.pem")}"
+      host        = "13.212.192.118"
+    }
+  }
+}
