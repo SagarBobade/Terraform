@@ -13,6 +13,7 @@ Here we have described understanding of terraform.
 - [Terraform Core](#terraform-core)
 - [Commands](#commands)
 - [Output](#output)
+- [Types](#types)
 - [Pass value to a variable](#pass-value-to-a-variable)
 - [Provisioners](#provisioners)
 - [remote-exec](#remote-exec)
@@ -92,6 +93,14 @@ output "instance_ip_addr" {
   value = aws_instance.server.private_ip
 }
 ```
+## Types
+The terraform language supports following types for its value:
+1. string
+2. number
+3. bool
+4. list
+5. map
+6. null
 
 ## Passing value to a variable
 1. While `Terraform-apply` command - we get prompt to enter value for variable - we need to declare using keyword `variable`
